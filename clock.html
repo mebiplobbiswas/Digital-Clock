@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock(Biplob)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0c99b9 ;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .clock-container {
+            background: #b9b60c ;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .clock {
+            font-size: 80px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: #33021b;
+            text-shadow: 2px 2px 10px rgba(161, 193, 186, 0.5);
+        }
+
+        .date {
+            font-size: 20px;
+            color: #fff;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .clock {
+                font-size: 60px;
+            }
+
+            .date {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+   <div>
+   
+   </div>
+    <div class="clock-container">    
+        <h2>TIME DISPLAY</h2>    
+        <hr/>
+        <br/>
+        <div class="clock">
+            <span id="time"></span>
+        </div>
+        <div class="date">
+            <span id="date"></span>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const timeElement = document.getElementById('time');
+            const dateElement = document.getElementById('date');
+            
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            // Convert to 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            
+            const day = now.toLocaleString('default', { weekday: 'long' });
+            const month = now.toLocaleString('default', { month: 'long' });
+            const date = now.getDate();
+            const year = now.getFullYear();
+
+            timeElement.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+            dateElement.textContent = `${day}, ${month} ${date}, ${year}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); 
+    </script>
+</body>
+</html>
